@@ -41,11 +41,65 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  
+
   /* Nouvelles couleurs personnalisées */
   --color-yellow: #ffc100;
   --color-blue-dark: #17375d;
   --color-blue-sky: #9acbfd;
+  --animate-marquee-left: marquee-left var(--marquee-duration) linear var(--marquee-loop-count);
+  --animate-marquee-right: marquee-right var(--marquee-duration) linear var(--marquee-loop-count);
+  --animate-marquee-left-rtl: marquee-left-rtl var(--marquee-duration) linear var(--marquee-loop-count);
+  --animate-marquee-right-rtl: marquee-right-rtl var(--marquee-duration) linear var(--marquee-loop-count);
+  --animate-marquee-up: marquee-up var(--marquee-duration) linear var(--marquee-loop-count);
+  --animate-marquee-down: marquee-down var(--marquee-duration) linear var(--marquee-loop-count);
+  @keyframes marquee-left {
+  0% {
+    transform: translateX(0%);
+    }
+  100% {
+    transform: translateX(calc(-100% - var(--marquee-gap)));
+    }
+  }
+  @keyframes marquee-right {
+  0% {
+    transform: translateX(calc(-100% - var(--marquee-gap)));
+    }
+  100% {
+    transform: translateX(0%);
+    }
+  }
+  @keyframes marquee-up {
+  0% {
+    transform: translateY(0%);
+    }
+  100% {
+    transform: translateY(calc(-100% - var(--marquee-gap)));
+    }
+  }
+  @keyframes marquee-down {
+  0% {
+    transform: translateY(calc(-100% - var(--marquee-gap)));
+    }
+  100% {
+    transform: translateY(0%);
+    }
+  }
+  @keyframes marquee-left-rtl {
+  0% {
+    transform: translateX(0%);
+    }
+  100% {
+    transform: translateX(calc(100% + var(--marquee-gap)));
+    }
+  }
+  @keyframes marquee-right-rtl {
+  0% {
+    transform: translateX(calc(100% + var(--marquee-gap)));
+    }
+  100% {
+    transform: translateX(0%);
+    }
+  }
 }
 
 :root {
@@ -81,7 +135,7 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  
+
   /* Définition des couleurs personnalisées pour le mode light */
   --yellow: #ffc100;
   --blue-dark: #17375d;
@@ -120,7 +174,7 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-  
+
   /* Définition des couleurs personnalisées pour le mode dark */
   --yellow: #ffc100;
   --blue-dark: #17375d;
@@ -141,35 +195,35 @@
   .text-yellow-custom {
     color: var(--yellow);
   }
-  
+
   .bg-yellow-custom {
     background-color: var(--yellow);
   }
-  
+
   .border-yellow-custom {
     border-color: var(--yellow);
   }
-  
+
   .text-blue-dark {
     color: var(--blue-dark);
   }
-  
+
   .bg-blue-dark {
     background-color: var(--blue-dark);
   }
-  
+
   .border-blue-dark {
     border-color: var(--blue-dark);
   }
-  
+
   .text-blue-sky {
     color: var(--blue-sky);
   }
-  
+
   .bg-blue-sky {
     background-color: var(--blue-sky);
   }
-  
+
   .border-blue-sky {
     border-color: var(--blue-sky);
   }
