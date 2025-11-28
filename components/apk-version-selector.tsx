@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Download, Calendar, Package } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { animate, createScope, spring } from 'animejs';
+import { QRCode, QRCodeSkeleton, QRCodeCanvas, QRCodeOverlay } from './ui/qr-code';
 
 interface ApkVersion {
   id: number;
@@ -189,44 +190,68 @@ export function ApkVersionSelector({ versions, selectedVersion }: ApkVersionSele
         </Button>
       </div>
 
-      {/* Version Info */}
+      {/* Version Info with QR Code */}
       {currentVersion.apk_info && (
         <div 
           ref={infoRef} 
-          className="bg-gray-50 rounded-lg p-6 space-y-4"
+          className="bg-gray-50 rounded-lg p-6"
           style={{ opacity: 0, transform: 'translateX(-20px)' }}
         >
-          <div className="flex items-center gap-2">
-            <Package className="w-5 h-5 text-blue-600" />
-            <h3 className="text-lg font-semibold">
-              {currentVersion.tag_name}
-            </h3>
-            <Badge variant="outline" className="ml-2">
-              {formatFileSize(currentVersion.apk_info.size)}
-            </Badge>
-            {currentVersion.id === selectedVersion.id && (
-              <Badge variant="default" className="ml-2">
-                Latest
-              </Badge>
-            )}
-          </div>
-          
-          <div className="flex items-center gap-4 text-sm text-gray-600">
-            <div className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              <span>Released: {formatDate(currentVersion.published_at)}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <span>Downloads: {currentVersion.apk_info.download_count}</span>
-            </div>
-          </div>
+          <div className="flex flex-col lg:flex-row gap-6">
+            {/* File Info - Left Side */}
+            <div className="flex-1 space-y-4">
+              <div className="flex items-center gap-2">
+                <Package className="w-5 h-5 text-blue-600" />
+                <h3 className="text-lg font-semibold">
+                  {currentVersion.tag_name}
+                </h3>
+                <Badge variant="outline" className="ml-2">
+                  {formatFileSize(currentVersion.apk_info.size)}
+                </Badge>
+                {currentVersion.id === selectedVersion.id && (
+                  <Badge variant="default" className="ml-2">
+                    Latest
+                  </Badge>
+                )}
+              </div>
+              
+              <div className="flex items-center gap-4 text-sm text-gray-600">
+                <div className="flex items-center gap-1">
+                  <Calendar className="w-4 h-4" />
+                  <span>Released: {formatDate(currentVersion.published_at)}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <span>Downloads: {currentVersion.apk_info.download_count}</span>
+                </div>
+              </div>
 
-          {/* File Info */}
-          <div>
-            <h4 className="font-medium text-gray-900 mb-2">File Information:</h4>
-            <p className="text-sm text-gray-700">
-              {currentVersion.apk_info.name}
-            </p>
+              {/* File Info */}
+              <div>
+                <h4 className="font-medium text-gray-900 mb-2">File Information:</h4>
+                <p className="text-sm text-gray-700">
+                  {currentVersion.apk_info.name}
+                </p>
+              </div>
+            </div>
+
+            {/* QR Code - Right Side */}
+            <div className="flex flex-col items-center gap-3 lg:border-l lg:pl-6 lg:border-gray-200">
+              <h4 className="font-medium text-gray-900 text-sm">Scan to Download</h4>
+              <QRCode
+                value={currentVersion.apk_info.download_url}
+                size={120}
+                level="H"
+              >
+                <QRCodeSkeleton />
+                <QRCodeCanvas />
+                <QRCodeOverlay className="rounded-full border-2 border-white p-2">
+                  <Package className="w-5 h-5 text-blue-600" />
+                </QRCodeOverlay>
+              </QRCode>
+              <p className="text-xs text-gray-500 text-center max-w-[140px]">
+                Scan this QR code to download<br />the APK directly to your device
+              </p>
+            </div>
           </div>
         </div>
       )}
