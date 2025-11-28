@@ -33,7 +33,7 @@ export function ApkDownloadHero() {
         direction: 'alternate'
       });
 
-      self.add('successButton', () => {
+      self?.add('successButton', () => {
         animate('.download-btn', {
           backgroundColor: ['#f59e0b', '#10b981'],
           scale: [1, 1.05, 1],
@@ -42,7 +42,7 @@ export function ApkDownloadHero() {
         });
       });
 
-      self.add('errorButton', () => {
+      self?.add('errorButton', () => {
         animate('.download-btn', {
           backgroundColor: ['#f59e0b', '#ef4444'],
           scale: [1, 0.98, 1],

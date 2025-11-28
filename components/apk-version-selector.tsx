@@ -58,7 +58,7 @@ export function ApkVersionSelector({ versions, selectedVersion }: ApkVersionSele
       }
 
       // Register method for version info animation
-      self.add('animateVersionInfo', () => {
+      self?.add('animateVersionInfo', () => {
         if (infoRef.current) {
           animate(infoRef.current, {
             translateX: [-20, 0],
@@ -70,7 +70,7 @@ export function ApkVersionSelector({ versions, selectedVersion }: ApkVersionSele
       });
 
       // Register method for download button animation
-      self.add('pulseDownloadButton', () => {
+      self?.add('pulseDownloadButton', () => {
         const button = containerRef.current?.querySelector('.version-download-btn');
         if (button) {
           animate(button, {
